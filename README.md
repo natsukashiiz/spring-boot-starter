@@ -21,8 +21,8 @@
    "records": xxxx
  }
  ```
- | index | description |
-|--|--|
-|code|response code|
-|result|reponse data|
-|records|data count|
+ | index |type | description |
+|--|--|--|
+|code|number|response code|
+|result|object|reponse data|
+|records|number|data count|
