@@ -25,9 +25,16 @@ public class Response {
         BaseResponse<?> response = BaseResponse.builder()
                 .code(ResponseCode.SUCCESS.getValue())
                 .result(result)
-                .count((long) result.size())
+                .records((long) result.size())
                 .build();
         return ResponseEntity.ok(response);
+    }
+
+    public static ResponseEntity<?> error(ResponseCode code) {
+        BaseResponse<?> response = BaseResponse.builder()
+                .code(code.getValue())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     public static ResponseEntity<?> unknown() {
