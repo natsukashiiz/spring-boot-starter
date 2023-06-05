@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * {
  *     "id": xxxx,
- *     "email": "xxxx"
+ *     "email": "xxxx",
  *     "username": "xxxx"
  * }
  */
