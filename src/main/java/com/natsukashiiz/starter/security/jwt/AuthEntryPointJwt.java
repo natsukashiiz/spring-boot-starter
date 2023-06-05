@@ -20,11 +20,6 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * @param request
-     * @param response
-     * @param authException
-     * @throws IOException
-     * @throws ServletException
      * {
      *   "code": 4100,
      *   "result": null,
