@@ -1,5 +1,6 @@
 package com.natsukashiiz.starter.controller;
 
+import com.natsukashiiz.starter.model.request.ChangePasswordRequest;
 import com.natsukashiiz.starter.model.request.UpdateUserRequest;
 import com.natsukashiiz.starter.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,13 @@ public class UserApi {
         return service.getMe();
     }
 
-    @PostMapping
+    @PatchMapping
     public ResponseEntity<?> update(@RequestBody UpdateUserRequest request) {
         return service.update(request);
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        return service.changePassword(request);
     }
 }

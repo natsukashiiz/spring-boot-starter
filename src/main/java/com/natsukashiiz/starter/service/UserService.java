@@ -6,6 +6,7 @@ import com.natsukashiiz.starter.entity.User;
 import com.natsukashiiz.starter.model.Response;
 import com.natsukashiiz.starter.model.request.*;
 import com.natsukashiiz.starter.model.response.TokenResponse;
+import com.natsukashiiz.starter.model.response.UserResponse;
 import com.natsukashiiz.starter.repository.SignedHistoryRepo;
 import com.natsukashiiz.starter.repository.UserRepo;
 import com.natsukashiiz.starter.security.jwt.JwtResfreshUtils;
@@ -42,7 +43,8 @@ public class UserService {
         }
 
         User user = opt.get();
-        return Response.success(user);
+        UserResponse response = buildResponse(user);
+        return Response.success(response);
     }
 
     public ResponseEntity<?> update(UpdateUserRequest request) {
@@ -58,7 +60,8 @@ public class UserService {
         User user = opt.get();
         user.setEmail(request.getEmail());
         User save = repo.save(user);
-        return Response.success(save);
+        UserResponse response = buildResponse(save);
+        return Response.success(response);
     }
 
     public ResponseEntity<?> changePassword(ChangePasswordRequest request) {
@@ -93,7 +96,8 @@ public class UserService {
 
         user.setPassword(passwordEncoded);
         User save = repo.save(user);
-        return Response.success(save);
+        UserResponse response = buildResponse(save);
+        return Response.success(response);
     }
 
     public ResponseEntity<?> create(RegisterRequest request) {
@@ -138,7 +142,8 @@ public class UserService {
 
         // save
         User save = repo.save(entity);
-        return Response.success(save);
+        UserResponse response = buildResponse(save);
+        return Response.success(response);
     }
 
     public ResponseEntity<?> login(LoginRequest request, String ip, String userAgent) {
@@ -209,5 +214,13 @@ public class UserService {
 
     public boolean matchPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    public UserResponse buildResponse(User user) {
+        return UserResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .username(user.getUsername())
+                .build();
     }
 }
