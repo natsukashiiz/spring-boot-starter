@@ -14,5 +14,9 @@ spring:
 natsukashiiz:
   jwt:
     issuer: natsukashiiz
-    secret: rBhbLzWnPFPbVUdAnYaHBPWHXNjA5cfJpjuhYPBArxSpLAh2Xm5Jbcr3XMR2W3Pn
-    expirationMs: 86400000
+    access:
+      secret: rBhbLzWnPFPbVUdAnYaHBPWHXNjA5cfJpjuhYPBArxSpLAh2Xm5Jbcr3XMR2W3Pn
+      expirationMs: 3600000
+    refresh:
+      secret: rBhbLzWnPFPbVUdAnYaHBPWHXNjA5cfJpjuhYPBArxSpLAh2Xm5Jbcr3XMR2W3Pn
+      expirationMs: 86400000
