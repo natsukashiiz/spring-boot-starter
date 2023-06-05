@@ -19,6 +19,18 @@ import java.io.IOException;
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * @param request
+     * @param response
+     * @param authException
+     * @throws IOException
+     * @throws ServletException
+     * {
+     *   "code": 4100,
+     *   "result": null,
+     *   "records": null
+     * }
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         logger.error("AuthEntryPointJwt-[Unauthorized]. error: {}", authException.getLocalizedMessage());
