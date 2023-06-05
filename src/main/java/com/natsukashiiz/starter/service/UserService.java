@@ -1,15 +1,16 @@
 package com.natsukashiiz.starter.service;
 
 import com.natsukashiiz.starter.common.ResponseCode;
+import com.natsukashiiz.starter.entity.SignedHistory;
 import com.natsukashiiz.starter.entity.User;
 import com.natsukashiiz.starter.model.Response;
-import com.natsukashiiz.starter.model.request.LoginRequest;
-import com.natsukashiiz.starter.model.request.RegisterRequest;
-import com.natsukashiiz.starter.model.request.TokenRefreshRequest;
+import com.natsukashiiz.starter.model.request.*;
 import com.natsukashiiz.starter.model.response.TokenResponse;
+import com.natsukashiiz.starter.repository.SignedHistoryRepo;
 import com.natsukashiiz.starter.repository.UserRepo;
 import com.natsukashiiz.starter.security.jwt.JwtResfreshUtils;
 import com.natsukashiiz.starter.security.jwt.JwtUtils;
+import com.natsukashiiz.starter.utils.Comm;
 import com.natsukashiiz.starter.utils.ValidateUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -28,9 +29,72 @@ import java.util.Optional;
 public class UserService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final UserRepo repo;
+    private final SignedHistoryRepo historyRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final JwtResfreshUtils jwtResfreshUtils;
+
+    public ResponseEntity<?> getMe() {
+        String username = Comm.getUsernameFromAuth();
+        Optional<User> opt = repo.findByUsername(username);
+        if (!opt.isPresent()) {
+            return Response.error(ResponseCode.NOT_FOUND);
+        }
+
+        User user = opt.get();
+        return Response.success(user);
+    }
+
+    public ResponseEntity<?> update(UpdateUserRequest request) {
+        if (ValidateUtil.invalidEmail(request.getEmail())) {
+            return Response.error(ResponseCode.INVALID_EMAIL);
+        }
+        String username = Comm.getUsernameFromAuth();
+        Optional<User> opt = repo.findByUsername(username);
+        if (!opt.isPresent()) {
+            return Response.error(ResponseCode.NOT_FOUND);
+        }
+
+        User user = opt.get();
+        user.setEmail(request.getEmail());
+        User save = repo.save(user);
+        return Response.success(save);
+    }
+
+    public ResponseEntity<?> changePassword(ChangePasswordRequest request) {
+        if (ValidateUtil.invalidPassword(request.getCurrentPassword())) {
+            return Response.error(ResponseCode.INVALID_PASSWORD);
+        }
+
+        if (ValidateUtil.invalidPassword(request.getNewPassword())) {
+            return Response.error(ResponseCode.INVALID_NEW_PASSWORD);
+        }
+
+        if (!Objects.equals(request.getNewPassword(), request.getConfirmPassword())) {
+            return Response.error(ResponseCode.PASSWORD_NOT_MATCH);
+        }
+
+
+        String username = Comm.getUsernameFromAuth();
+        Optional<User> opt = repo.findByUsername(username);
+        if (!opt.isPresent()) {
+            return Response.error(ResponseCode.NOT_FOUND);
+        }
+
+        User user = opt.get();
+
+        // check password
+        if (!matchPassword(request.getCurrentPassword(), user.getPassword())) {
+            return Response.error(ResponseCode.INVALID_PASSWORD);
+        }
+
+        // password encoded
+        String passwordEncoded = passwordEncoder.encode(request.getNewPassword());
+
+        user.setPassword(passwordEncoded);
+        User save = repo.save(user);
+        return Response.success(save);
+    }
 
     public ResponseEntity<?> create(RegisterRequest request) {
         // validate
@@ -77,7 +141,7 @@ public class UserService {
         return Response.success(save);
     }
 
-    public ResponseEntity<?> login(LoginRequest request) {
+    public ResponseEntity<?> login(LoginRequest request, String ip, String userAgent) {
         // validate
         if (ValidateUtil.invalidUsername(request.getUsername())) {
             logger.error("Login-[block]:(validate username)");
@@ -105,6 +169,13 @@ public class UserService {
             logger.error("Login-[block]:(incorrect password)");
             return Response.error(ResponseCode.INVALID_USERNAME_PASSWORD);
         }
+
+        // save signed history
+        SignedHistory history = new SignedHistory();
+        history.setUid(user.getId());
+        history.setIpv4(ip);
+        history.setUserAgent(userAgent);
+        historyRepo.save(history);
 
         TokenResponse token = token(user);
         return Response.success(token);

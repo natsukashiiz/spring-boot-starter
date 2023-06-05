@@ -17,6 +17,8 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private boolean state;
+
     @CreationTimestamp
     private LocalDateTime cdt;
     @UpdateTimestamp

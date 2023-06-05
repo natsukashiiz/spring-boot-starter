@@ -4,12 +4,15 @@ import com.natsukashiiz.starter.model.request.LoginRequest;
 import com.natsukashiiz.starter.model.request.RegisterRequest;
 import com.natsukashiiz.starter.model.request.TokenRefreshRequest;
 import com.natsukashiiz.starter.service.UserService;
+import com.natsukashiiz.starter.utils.Comm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/v1/auth")
@@ -23,8 +26,10 @@ public class AuthApi {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        return service.login(request);
+    public ResponseEntity<?> login(HttpServletRequest httpRequest, @RequestBody LoginRequest request) {
+        String ipAddress = Comm.getIpAddress(httpRequest);
+        String userAgent = Comm.getUserAgent(httpRequest);
+        return service.login(request, ipAddress, userAgent);
     }
 
     @PostMapping("/refresh")
