@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class TokenResponse {
-    private String token;
-    private Long expire;
+    private String refreshToken;
+    private String accessToken;
+    private Long refreshExpire;
+    private Long accessExpire;
 }
