@@ -1,0 +1,18 @@
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:6033/spring_starter?useUnicode=yes&characterEncoding=UTF-8
+    username: admin
+    password: admin
+  jpa:
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+natsukashiiz:
+  jwt:
+    issuer: natsukashiiz
+    secret: rBhbLzWnPFPbVUdAnYaHBPWHXNjA5cfJpjuhYPBArxSpLAh2Xm5Jbcr3XMR2W3Pn
+    expirationMs: 86400000
