@@ -2,6 +2,13 @@ package com.natsukashiiz.starter.model.request;
 
 import lombok.Data;
 
+/**
+ * {
+ *     "email: "xxxx",
+ *     "username: "xxxx",
+ *     "password: "xxxx"
+ * }
+ */
 @Data
 public class RegisterRequest {
     private String email;
