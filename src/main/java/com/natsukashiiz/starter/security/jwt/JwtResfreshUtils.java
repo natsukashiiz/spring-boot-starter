@@ -2,14 +2,12 @@ package com.natsukashiiz.starter.security.jwt;
 
 import com.natsukashiiz.starter.entity.User;
 import com.natsukashiiz.starter.model.Token;
-import com.natsukashiiz.starter.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -25,18 +23,6 @@ public class JwtResfreshUtils {
     private String secret;
     @Value("${natsukashiiz.jwt.refresh.expirationMs}")
     private Long expirationMs;
-
-    public String generateTokenString(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
-        return Jwts.builder()
-                .setIssuer(issuer)
-                .setSubject(userPrincipal.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + expirationMs))
-                .signWith(key(), SignatureAlgorithm.HS256)
-                .compact();
-    }
 
     public Token generateToken(User user) {
         Date expiration = new Date(new Date().getTime() + expirationMs);
