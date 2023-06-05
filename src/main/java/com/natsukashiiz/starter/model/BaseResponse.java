@@ -1,6 +1,5 @@
 package com.natsukashiiz.starter.model;
 
-import com.natsukashiiz.starter.common.ResponseCode;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,6 +8,6 @@ import lombok.Data;
 public class BaseResponse<E> {
     private Integer code;
     private E result;
-    private Long count;
+    private Long records;
 
 }
