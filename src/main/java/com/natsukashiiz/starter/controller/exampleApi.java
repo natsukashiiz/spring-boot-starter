@@ -4,16 +4,14 @@ import com.natsukashiiz.starter.model.Pagination;
 import com.natsukashiiz.starter.model.Response;
 import com.natsukashiiz.starter.model.response.ExampleResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/v1/example")
+@RestController
+@RequestMapping("/v1/example")
 public class exampleApi {
     @GetMapping
     public ResponseEntity<?> get() {
