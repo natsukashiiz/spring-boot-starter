@@ -22,7 +22,7 @@ import java.util.Objects;
 public class AuthTokenFilter extends OncePerRequestFilter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private JwtUtils jwtUtils;
+    private JwtAccessUtils jwtAccessUtils;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
@@ -30,8 +30,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-            if (Objects.nonNull(jwt) && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUsernameFromToken(jwt);
+            if (Objects.nonNull(jwt) && jwtAccessUtils.validateJwtToken(jwt)) {
+                String username = jwtAccessUtils.getUsernameFromToken(jwt);
                 logger.info("AuthTokenFilter-[doFilterInternal] username: {}", username);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
