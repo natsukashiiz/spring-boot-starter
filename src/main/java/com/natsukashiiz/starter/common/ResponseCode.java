@@ -16,7 +16,7 @@ public enum ResponseCode {
     NOT_FOUND(4040),
     TOKEN_EXPIRE(4070),
     REFRESH_TOKEN_EXPIRE(4071),
-    UNAUTHORIZED(8888),
+    UNAUTHORIZED(4100),
     UNKNOWN(9999);
 
     private final Integer value;
