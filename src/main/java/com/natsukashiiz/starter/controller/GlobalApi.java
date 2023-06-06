@@ -1,6 +1,6 @@
 package com.natsukashiiz.starter.controller;
 
-import com.natsukashiiz.starter.model.Response;
+import com.natsukashiiz.starter.common.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

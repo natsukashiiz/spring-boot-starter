@@ -3,7 +3,7 @@ package com.natsukashiiz.starter.service;
 import com.natsukashiiz.starter.common.ResponseCode;
 import com.natsukashiiz.starter.entity.SignedHistory;
 import com.natsukashiiz.starter.entity.User;
-import com.natsukashiiz.starter.model.Response;
+import com.natsukashiiz.starter.common.Response;
 import com.natsukashiiz.starter.model.request.*;
 import com.natsukashiiz.starter.model.response.TokenResponse;
 import com.natsukashiiz.starter.model.response.UserResponse;

@@ -1,6 +1,7 @@
-package com.natsukashiiz.starter.model;
+package com.natsukashiiz.starter.common;
 
 import com.natsukashiiz.starter.common.ResponseCode;
+import com.natsukashiiz.starter.model.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
