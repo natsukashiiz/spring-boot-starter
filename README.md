@@ -1,6 +1,9 @@
 ﻿## Spring Boot Starter API
+> java version 1.8
+> 
+> spring-boot version 2.7.12
 ### Response code
-| CODE | Description |
+| code | description |
 |--|--|
 | 0 | success |
 | 4010 | invalid request|
@@ -10,3 +13,16 @@
 | 4100 | unauthorized|
 | 9999 | unknown|
 
+### Response example
+```json
+ {
+   "code": xxxx,
+   "result": xxxx,
+   "records": xxxx
+ }
+ ```
+ | index |type | description |
+|--|--|--|
+|code|number|response code|
+|result|object|reponse data|
+|records|number|data count|
