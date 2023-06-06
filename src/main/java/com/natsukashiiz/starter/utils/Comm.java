@@ -1,5 +1,6 @@
 package com.natsukashiiz.starter.utils;
 
+import com.natsukashiiz.starter.service.UserDetailsImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,8 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Comm {
     public static String getUsernameFromAuth() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = getAuth();
         return authentication.getName();
+    }
+
+    public static UserDetailsImpl getUserAuth() {
+        return (UserDetailsImpl) getAuth().getPrincipal();
+    }
+
+    public static Authentication getAuth() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
     public static String getUserAgent(HttpServletRequest request) {

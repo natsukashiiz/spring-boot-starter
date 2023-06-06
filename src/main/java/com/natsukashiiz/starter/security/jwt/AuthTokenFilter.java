@@ -1,5 +1,6 @@
 package com.natsukashiiz.starter.security.jwt;
 
+import com.natsukashiiz.starter.service.UserDetailsImpl;
 import com.natsukashiiz.starter.service.UserDetailsServiceImpl;
 import com.natsukashiiz.starter.utils.Comm;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
             if (Objects.nonNull(jwt) && jwtAccessUtils.validateJwtToken(jwt)) {
                 String username = jwtAccessUtils.getUsernameFromToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UserDetailsImpl userDetails = userDetailsService.loadUserByUsername(username);
                 if (Objects.isNull(userDetails)) {
                     filterChain.doFilter(request, response);
                     return;
