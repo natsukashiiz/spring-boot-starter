@@ -40,14 +40,29 @@
 | 9999 | unknown                      |
 
 ### Pagination
+- request
+```http request
+GET /v1/example?page=1&limit=11&sortBy=id&sortType=desc
+```
+| index | type     | default | required | description   |
+|-------|----------|----------|----------|---------------|
+|page| number   | 1      | false    | page           |
+|limit| number   | 10     | false    | limit         |
+|sortBy| number   | id     | false    | index of data |
+|sortType| number  | asc   | false         | asc / desc |
+- response
 ```json
 {
-  "current": 1,
-  "limit": 10,
-  "records": 0,
-  "pages": 0,
-  "first": true,
-  "last": true
+  "code": 0,
+  "result": [],
+  "pagination": {
+    "current": 1,
+    "limit": 10,
+    "records": 0,
+    "pages": 0,
+    "first": true,
+    "last": true
+  }
 }
 ```
 | index | type    | description      |
@@ -60,16 +75,9 @@
 |last| boolean | -                |
 
 ### Authentication
-```text
+```http request
+GET /v1/users
 Authorization: Bearer <token>
-```
-- example for use fetch javascript
-```js
-fetch('/exaple', {
-  headers: {
-      Authentication: 'Bearer <token>'
-  }
-})
 ```
 
 ***
@@ -78,7 +86,7 @@ fetch('/exaple', {
 ## Auth
 ### sign up
 - request
-```text
+```http request
 POST /v1/auth/signup
 Content-Type: application/json
 
@@ -88,6 +96,11 @@ Content-Type: application/json
   "password": "xxxx",
 }
 ```
+| index | type   | default | required | description |
+|-------|--------|------|----------|-------------|
+|email| string |    | true     |        |
+|username| string |    | true     |     |
+|password| string |    | true     |     |
 - response
 ```json
 {
@@ -104,7 +117,7 @@ Content-Type: application/json
 ## sign in
 - request
 ```http request
-POST http://localhost:8080/v1/auth/signin
+POST /v1/auth/signin
 Content-Type: application/json
 
 {
@@ -112,6 +125,10 @@ Content-Type: application/json
   "password": "12345678"
 }
 ```
+| index | type   | default | required | description |
+|-------|--------|------|----------|-------------|
+|username| string |    | true     |     |
+|password| string |    | true     |     |
 - response
 ```json
 {
@@ -123,5 +140,38 @@ Content-Type: application/json
     "accessExpire": 1686222011541
   },
   "pagination": null
+}
+```
+
+## Users
+### singed history
+```http request
+GET /v1/users/signedHistory
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZDVhZDhjYS04NjE5LTRjNTAtOTQ4Yi0zNDNiYjEyNDdiYzQiLCJ1aWQiOjUsInVzZXJuYW1lIjoidnY5OTkiLCJlbWFpbCI6InZ2OTk5QGdtYWlsLmNvbSIsImlzcyI6Im5hdHN1a2FzaGlpeiIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MjIyMDExfQ.McaPFxSeRTnqo3G8KrCTmUwIfaOUGonV7i543_LdtTs
+```
+- response
+```json
+{
+  "code": 0,
+  "result": [
+    {
+      "id": 14,
+      "state": false,
+      "cdt": "2023-06-08T15:04:20.992",
+      "udt": "2023-06-08T15:04:20.992",
+      "uid": 5,
+      "ipv4": "192.168.1.88",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
+      "device": "iPhone"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "limit": 10,
+    "records": 1,
+    "pages": 1,
+    "first": true,
+    "last": true
+  }
 }
 ```
