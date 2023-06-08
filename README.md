@@ -24,14 +24,32 @@
 
 - response
 ```json
- {
-   "code": xxxx,
-   "result": xxxx,
-   "records": xxxx
- }
+{
+  "code":"xxxx",
+  "result":"xxxx",
+  "pagination":{
+    "current":"xxxx",
+    "limit":"xxxx",
+    "records":"xxxx",
+    "pages":"xxxx",
+    "first":"xxxx",
+    "last":"xxxx"
+  }
+}
  ```
-| index | type | description    |
-|-------|------|----------------|
-|code|number| response code  |
-|result|object| reponse data   |
-|records|number| data count     |
+| index | type | description       |
+|-------|------|-------------------|
+|code|number| response code     |
+|result|object| reponse data      |
+|pagination|pagination| pagination detail |
+
+- pagination
+
+| index | type    | description         |
+|-------|---------|---------------------|
+|current| number  | current page number |
+|limit| number  | limit data          |
+|records| number  | count of data       |
+|pages| number  | total page          |
+|first| boolean  | -                   |
+|lastlast| boolean | -                   |

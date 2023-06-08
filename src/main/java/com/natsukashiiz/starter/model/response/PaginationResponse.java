@@ -3,6 +3,16 @@ package com.natsukashiiz.starter.model.response;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * {
+ *     "current": xxxx,
+ *     "limit": xxxx,
+ *     "records": xxxx,
+ *     "pages": xxxx,
+ *     "first": xxxx,
+ *     "last": xxxx,
+ * }
+ */
 @Data
 @Builder
 public class PaginationResponse {
