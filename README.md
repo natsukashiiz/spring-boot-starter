@@ -1,4 +1,5 @@
 ﻿## Spring Boot Starter API
+- [Authentication](#authentication)
 > java version 1.8
 > 
 > spring-boot version 2.7.12
@@ -14,8 +15,8 @@
 | index | type           | description       |
 |-------|----------------|-------------------|
 |code| number         | response code     |
-|result| object / array | reponse data      |
-|pagination| pagination     | pagination detail |
+|result| jsonObject / array | reponse data      |
+|pagination| jsonObject     | pagination detail |
 
 ### Response code
 | code | description                  |
@@ -56,3 +57,14 @@
 |pages| number  | total page       |
 |first| boolean | -                |
 |last| boolean | -                |
+
+### Authentication
+```text
+Authorization: Bearer <token>
+```
+- example for use fetch javascript
+```js
+fetch('/exaple', {
+  headers: {Authentication: 'Bearer {token}'}
+})
+```
