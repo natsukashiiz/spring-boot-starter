@@ -1,6 +1,10 @@
 package com.natsukashiiz.starter.utils;
 
+import com.natsukashiiz.starter.model.Pagination;
 import com.natsukashiiz.starter.service.UserDetailsImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,5 +35,9 @@ public class Comm {
             return ipFromHeader;
         }
         return request.getRemoteAddr();
+    }
+
+    public static Pageable getPaginate(Pagination paginate) {
+        return PageRequest.of(paginate.getPage() > 0 ? paginate.getPage() - 1 : 0, paginate.getLimit(), Sort.Direction.fromString(paginate.getSortType()), paginate.getSortBy());
     }
 }

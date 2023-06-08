@@ -17,9 +17,8 @@ import com.natsukashiiz.starter.utils.ValidateUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +26,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -55,8 +53,8 @@ public class UserService {
 
     public ResponseEntity<?> signedHistory(Pagination paginate) {
         UserDetailsImpl auth = Comm.getUserAuth();
-        Pageable pageable = PageRequest.of(paginate.getPage(), paginate.getLimit(), Sort.Direction.fromString(paginate.getSortType()), paginate.getSortBy());
-        List<SignedHistory> histories = historyRepo.findAllByUid(auth.getId(), pageable);
+        Pageable pageable = Comm.getPaginate(paginate);
+        Page<SignedHistory> histories = historyRepo.findByUid(auth.getId(), pageable);
         return Response.successList(histories);
     }
 
