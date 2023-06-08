@@ -5,7 +5,7 @@
 > 
 > spring-boot version 2.7.12
 
-- response
+## Default response
 ```json
 {
   "code": 0,
@@ -140,6 +140,16 @@ Content-Type: application/json
     "accessExpire": 1686222011541
   },
   "pagination": null
+}
+```
+### refresh token
+- request
+```http request
+POST /v1/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuYXRzdWthc2hpaXoiLCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIyMDEzMywiZXhwIjoxNjg2MzA2NTMzfQ.C4IQ48D8nCAx0hwvAt7zjqWAgs90P7OlcT_9kpcIWjY"
 }
 ```
 
