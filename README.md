@@ -25,31 +25,30 @@
 - response
 ```json
 {
-  "code":"xxxx",
-  "result":"xxxx",
+  "code":0,
+  "result": null,
   "pagination":{
-    "current":"xxxx",
-    "limit":"xxxx",
-    "records":"xxxx",
-    "pages":"xxxx",
-    "first":"xxxx",
-    "last":"xxxx"
+    "current": 1,
+    "limit": 10,
+    "records": 0,
+    "pages": 0,
+    "first": true,
+    "last": true
   }
 }
  ```
-| index | type | description       |
-|-------|------|-------------------|
-|code|number| response code     |
-|result|object| reponse data      |
-|pagination|pagination| pagination detail |
+| index | type           | description       |
+|-------|----------------|-------------------|
+|code| number         | response code     |
+|result| object / array | reponse data      |
+|pagination| pagination     | pagination detail |
+### Pagination
 
-- pagination
-
-| index | type    | description         |
-|-------|---------|---------------------|
+| index | type    | description      |
+|-------|---------|------------------|
 |current| number  | current page number |
-|limit| number  | limit data          |
-|records| number  | count of data       |
-|pages| number  | total page          |
-|first| boolean  | -                   |
-|lastlast| boolean | -                   |
+|limit| number  | limit data       |
+|records| number  | count data       |
+|pages| number  | total page       |
+|first| boolean | -                |
+|last| boolean | -                |
