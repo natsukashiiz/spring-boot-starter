@@ -25,16 +25,9 @@
 - response
 ```json
 {
-  "code":0,
+  "code": 0,
   "result": null,
-  "pagination":{
-    "current": 1,
-    "limit": 10,
-    "records": 0,
-    "pages": 0,
-    "first": true,
-    "last": true
-  }
+  "pagination": null
 }
  ```
 | index | type           | description       |
@@ -43,7 +36,16 @@
 |result| object / array | reponse data      |
 |pagination| pagination     | pagination detail |
 ### Pagination
-
+```json
+{
+  "current": 1,
+  "limit": 10,
+  "records": 0,
+  "pages": 0,
+  "first": true,
+  "last": true
+}
+```
 | index | type    | description      |
 |-------|---------|------------------|
 |current| number  | current page number |
