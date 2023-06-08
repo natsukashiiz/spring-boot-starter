@@ -2,6 +2,21 @@
 > java version 1.8
 > 
 > spring-boot version 2.7.12
+
+- response
+```json
+{
+  "code": 0,
+  "result": null,
+  "pagination": null
+}
+ ```
+| index | type           | description       |
+|-------|----------------|-------------------|
+|code| number         | response code     |
+|result| object / array | reponse data      |
+|pagination| pagination     | pagination detail |
+
 ### Response code
 | code | description                  |
 |------|------------------------------|
@@ -22,19 +37,6 @@
 | 4100 | unauthorized                 |
 | 9999 | unknown                      |
 
-- response
-```json
-{
-  "code": 0,
-  "result": null,
-  "pagination": null
-}
- ```
-| index | type           | description       |
-|-------|----------------|-------------------|
-|code| number         | response code     |
-|result| object / array | reponse data      |
-|pagination| pagination     | pagination detail |
 ### Pagination
 ```json
 {
