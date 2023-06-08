@@ -162,6 +162,7 @@ public class UserService {
 
         String ipv4 = Comm.getIpAddress(httpRequest);
         String userAgent = Comm.getUserAgent(httpRequest);
+        String device = Comm.getDeviceType(userAgent);
 
         // validate
         if (ValidateUtil.invalidUsername(request.getUsername())) {
@@ -195,6 +196,7 @@ public class UserService {
         SignedHistory history = new SignedHistory();
         history.setUid(user.getId());
         history.setIpv4(ipv4);
+        history.setDevice(device);
         history.setUserAgent(userAgent);
         historyRepo.save(history);
 

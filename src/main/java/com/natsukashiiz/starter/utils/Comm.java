@@ -40,4 +40,25 @@ public class Comm {
     public static Pageable getPaginate(Pagination paginate) {
         return PageRequest.of(paginate.getPage() > 0 ? paginate.getPage() - 1 : 0, paginate.getLimit(), Sort.Direction.fromString(paginate.getSortType()), paginate.getSortBy());
     }
+
+    public static String getDeviceType(String userAgent) {
+        String deviceType;
+
+        String iPhone = "iPhone";
+        String Android = "Android";
+        String Windows = "Windows";
+        String Unknown = "Unknown";
+
+        if (userAgent.contains(iPhone)) {
+            deviceType = iPhone;
+        } else if (userAgent.contains(Android)) {
+            deviceType = Android;
+        } else if (userAgent.contains(Windows)) {
+            deviceType = Windows;
+        } else {
+            deviceType = Unknown;
+        }
+
+        return deviceType;
+    }
 }

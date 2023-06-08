@@ -16,4 +16,6 @@ public class SignedHistory extends BaseEntity {
     private String ipv4;
     @Column(nullable = false)
     private String userAgent;
+    @Column(nullable = false, length = 7)
+    private String device;
 }
