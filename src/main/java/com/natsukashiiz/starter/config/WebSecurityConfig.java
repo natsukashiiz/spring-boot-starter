@@ -65,7 +65,7 @@ public class WebSecurityConfig {
      */
     private static final String[] AUTH_WHITELIST = {
             "/v1/auth/**",
-            "/v1/global"
+            "/v1/global/**"
     };
 
     @Bean
