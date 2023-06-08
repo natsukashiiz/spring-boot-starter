@@ -26,6 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,9 +53,9 @@ public class UserService {
         return Response.success(response);
     }
 
-    public ResponseEntity<?> signedHistory(Pagination pagi) {
+    public ResponseEntity<?> signedHistory(Pagination paginate) {
         UserDetailsImpl auth = Comm.getUserAuth();
-        Pageable pageable = PageRequest.of(pagi.getPage(), pagi.getLimit(), Sort.Direction.fromString(pagi.getSortType()), "id");
+        Pageable pageable = PageRequest.of(paginate.getPage(), paginate.getLimit(), Sort.Direction.fromString(paginate.getSortType()), paginate.getSortBy());
         List<SignedHistory> histories = historyRepo.findAllByUid(auth.getId(), pageable);
         return Response.successList(histories);
     }
@@ -159,7 +160,11 @@ public class UserService {
         return Response.success(response);
     }
 
-    public ResponseEntity<?> login(LoginRequest request, String ip, String userAgent) {
+    public ResponseEntity<?> login(LoginRequest request, HttpServletRequest httpRequest) {
+
+        String ipv4 = Comm.getIpAddress(httpRequest);
+        String userAgent = Comm.getUserAgent(httpRequest);
+
         // validate
         if (ValidateUtil.invalidUsername(request.getUsername())) {
             logger.error("Login-[block]:(validate username)");
@@ -191,7 +196,7 @@ public class UserService {
         // save signed history
         SignedHistory history = new SignedHistory();
         history.setUid(user.getId());
-        history.setIpv4(ip);
+        history.setIpv4(ipv4);
         history.setUserAgent(userAgent);
         historyRepo.save(history);
 

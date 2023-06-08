@@ -21,6 +21,9 @@ public class UserApi {
         return service.getMe();
     }
 
+    /**
+     * {baseUrl}/signedHistory?page=1&limit=3&sortBy=cdt&sortType=desc
+     */
     @GetMapping("/signedHistory")
     public ResponseEntity<?> signedHistory(Pagination pagination) {
         return service.signedHistory(pagination);

@@ -27,9 +27,7 @@ public class AuthApi {
 
     @PostMapping("/signin")
     public ResponseEntity<?> login(HttpServletRequest httpRequest, @RequestBody LoginRequest request) {
-        String ipAddress = Comm.getIpAddress(httpRequest);
-        String userAgent = Comm.getUserAgent(httpRequest);
-        return service.login(request, ipAddress, userAgent);
+        return service.login(request, httpRequest);
     }
 
     @PostMapping("/refresh")
