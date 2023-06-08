@@ -1,9 +1,10 @@
 package com.natsukashiiz.starter.service;
 
+import com.natsukashiiz.starter.common.Response;
 import com.natsukashiiz.starter.common.ResponseCode;
 import com.natsukashiiz.starter.entity.SignedHistory;
 import com.natsukashiiz.starter.entity.User;
-import com.natsukashiiz.starter.common.Response;
+import com.natsukashiiz.starter.model.Pagination;
 import com.natsukashiiz.starter.model.request.*;
 import com.natsukashiiz.starter.model.response.TokenResponse;
 import com.natsukashiiz.starter.model.response.UserResponse;
@@ -16,12 +17,16 @@ import com.natsukashiiz.starter.utils.ValidateUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -46,6 +51,14 @@ public class UserService {
         UserResponse response = buildResponse(user);
         return Response.success(response);
     }
+
+    public ResponseEntity<?> signedHistory(Pagination pagi) {
+        UserDetailsImpl auth = Comm.getUserAuth();
+        Pageable pageable = PageRequest.of(pagi.getPage(), pagi.getLimit(), Sort.Direction.fromString(pagi.getSortType()), "id");
+        List<SignedHistory> histories = historyRepo.findAllByUid(auth.getId(), pageable);
+        return Response.successList(histories);
+    }
+
 
     public ResponseEntity<?> update(UpdateUserRequest request) {
         if (ValidateUtil.invalidEmail(request.getEmail())) {
