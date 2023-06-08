@@ -4,7 +4,6 @@ import java.util.Optional;
 
 public enum ResponseCode {
     SUCCESS(0),
-    NO_DATA(4000),
     INVALID_REQUEST(4010),
     INVALID_EMAIL(4011),
     INVALID_USERNAME(4012),
@@ -17,6 +16,7 @@ public enum ResponseCode {
     EXISTED_EMAIL(4031),
     EXISTED_USERNAME(4032),
     NOT_FOUND(4040),
+    NO_DATA(4041),
     TOKEN_EXPIRE(4070),
     REFRESH_TOKEN_EXPIRE(4071),
     UNAUTHORIZED(4100),
