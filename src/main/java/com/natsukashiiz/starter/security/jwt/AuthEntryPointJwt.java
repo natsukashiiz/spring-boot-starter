@@ -1,8 +1,7 @@
 package com.natsukashiiz.starter.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.natsukashiiz.starter.common.ResponseCode;
-import com.natsukashiiz.starter.model.BaseResponse;
+import com.natsukashiiz.starter.common.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -21,9 +20,9 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     /**
      * {
-     *   "code": 4100,
-     *   "result": null,
-     *   "records": null
+     * "code": 4100,
+     * "result": null,
+     * "records": null
      * }
      */
     @Override
@@ -33,11 +32,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        BaseResponse<Object> res = BaseResponse.builder()
-                .code(ResponseCode.UNAUTHORIZED.getValue())
-                .build();
-
         final ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(response.getOutputStream(), res);
+        mapper.writeValue(response.getOutputStream(), Response.unauthorized().getBody());
     }
 }

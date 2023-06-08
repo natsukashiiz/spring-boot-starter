@@ -6,8 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 /**
  * {
  * "code": xxxx,
@@ -36,8 +34,10 @@ public class Response {
      * }
      */
     public static <E> ResponseEntity<?> success(E result) {
+        ResponseCode code = ResponseCode.SUCCESS;
         BaseResponse<?> response = BaseResponse.builder()
-                .code(ResponseCode.SUCCESS.getValue())
+                .code(code.getValue())
+                .text(code)
                 .result(result)
                 .build();
         return ResponseEntity.ok(response);
@@ -65,9 +65,11 @@ public class Response {
                 .first(result.isFirst())
                 .last(result.isLast())
                 .build();
+        ResponseCode code = ResponseCode.SUCCESS;
         BaseResponse<?> response = BaseResponse.builder()
-                .code(ResponseCode.SUCCESS.getValue())
+                .code(code.getValue())
                 .result(result.getContent())
+                .text(code)
                 .pagination(pagination)
                 .build();
         return ResponseEntity.ok(response);
@@ -83,6 +85,7 @@ public class Response {
     public static ResponseEntity<?> error(ResponseCode code) {
         BaseResponse<?> response = BaseResponse.builder()
                 .code(code.getValue())
+                .text(code)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
@@ -95,8 +98,10 @@ public class Response {
      * }
      */
     public static ResponseEntity<?> unauthorized() {
+        ResponseCode code = ResponseCode.UNAUTHORIZED;
         BaseResponse<?> response = BaseResponse.builder()
-                .code(ResponseCode.UNKNOWN.getValue())
+                .code(code.getValue())
+                .text(code)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
@@ -109,8 +114,10 @@ public class Response {
      * }
      */
     public static ResponseEntity<?> unknown() {
+        ResponseCode code = ResponseCode.UNKNOWN;
         BaseResponse<?> response = BaseResponse.builder()
-                .code(ResponseCode.UNKNOWN.getValue())
+                .code(code.getValue())
+                .text(code)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
