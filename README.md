@@ -1,5 +1,6 @@
 ﻿## Spring Boot Starter API
 - [Authentication](#authentication)
+***
 > java version 1.8
 > 
 > spring-boot version 2.7.12
@@ -65,6 +66,62 @@ Authorization: Bearer <token>
 - example for use fetch javascript
 ```js
 fetch('/exaple', {
-  headers: {Authentication: 'Bearer {token}'}
+  headers: {
+      Authentication: 'Bearer <token>'
+  }
 })
+```
+
+***
+# API
+
+## Auth
+### sign up
+- request
+```text
+POST /v1/auth/signup
+Content-Type: application/json
+
+{
+  "email": "xxxx",
+  "username": "xxxx",
+  "password": "xxxx",
+}
+```
+- response
+```json
+{
+  "code": 0,
+  "result": {
+    "id": 1,
+    "email": "xxx@email.com",
+    "username": "xxxx"
+  },
+  "pagination": null
+}
+``` 
+
+## sign in
+- request
+```http request
+POST http://localhost:8080/v1/auth/signin
+Content-Type: application/json
+
+{
+  "username": "xxxx",
+  "password": "12345678"
+}
+```
+- response
+```json
+{
+  "code": 0,
+  "result": {
+    "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuYXRzdWthc2hpaXoiLCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MzA0ODExfQ.n8fJp6_EUltl2GF6Six4Er1KonCIDVBcx33xUdJAIxE",
+    "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZDVhZDhjYS04NjE5LTRjNTAtOTQ4Yi0zNDNiYjEyNDdiYzQiLCJ1aWQiOjUsInVzZXJuYW1lIjoidnY5OTkiLCJlbWFpbCI6InZ2OTk5QGdtYWlsLmNvbSIsImlzcyI6Im5hdHN1a2FzaGlpeiIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MjIyMDExfQ.McaPFxSeRTnqo3G8KrCTmUwIfaOUGonV7i543_LdtTs",
+    "refreshExpire": 1686304811568,
+    "accessExpire": 1686222011541
+  },
+  "pagination": null
+}
 ```
