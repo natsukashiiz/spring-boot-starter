@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class SignedHistoryResponse {
-    private Long uid;
+    private Long id;
     private String ipv4;
-    private String userAgent;
+    private String device;
 }

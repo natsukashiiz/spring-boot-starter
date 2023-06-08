@@ -155,13 +155,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZDVhZDhjYS04NjE5LTRjNTAtO
   "code": 0,
   "result": [
     {
-      "id": 14,
-      "state": false,
+      "id": 1,
       "cdt": "2023-06-08T15:04:20.992",
       "udt": "2023-06-08T15:04:20.992",
-      "uid": 5,
-      "ipv4": "192.168.1.88",
-      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
+      "ipv4": "192.168.1.1",
       "device": "iPhone"
     }
   ],
