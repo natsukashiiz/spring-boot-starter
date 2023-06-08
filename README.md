@@ -134,8 +134,8 @@ Content-Type: application/json
 {
   "code": 0,
   "result": {
-    "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuYXRzdWthc2hpaXoiLCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MzA0ODExfQ.n8fJp6_EUltl2GF6Six4Er1KonCIDVBcx33xUdJAIxE",
-    "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZDVhZDhjYS04NjE5LTRjNTAtOTQ4Yi0zNDNiYjEyNDdiYzQiLCJ1aWQiOjUsInVzZXJuYW1lIjoidnY5OTkiLCJlbWFpbCI6InZ2OTk5QGdtYWlsLmNvbSIsImlzcyI6Im5hdHN1a2FzaGlpeiIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MjIyMDExfQ.McaPFxSeRTnqo3G8KrCTmUwIfaOUGonV7i543_LdtTs",
+    "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuYXRzdWthcfdf2hpaXoiLCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MzA0ODExfQ.n8fJp6_EUltl2GF6Six4Er1KonCIDVBcx33xUdJAIxE",
+    "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZDVhZDhjYS04NjE5LTRjNTAtOTQdasfs4Yi0zNDNiYjEyNDdiYzQiLCJ1aWQiOjUsInVzZXJuYW1lIjoidnY5OTkiLCJlbWFpbCI6InZ2OTk5QGdtYWlsLmNvbSIsImlzcyI6Im5hdHN1a2FzaGlpeiIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MjIyMDExfQ.McaPFxSeRTnqo3G8KrCTmUwIfaOUGonV7i543_LdtTs",
     "refreshExpire": 1686304811568,
     "accessExpire": 1686222011541
   },
@@ -149,7 +149,23 @@ POST /v1/auth/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuYXRzdWthc2hpaXoiLCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIyMDEzMywiZXhwIjoxNjg2MzA2NTMzfQ.C4IQ48D8nCAx0hwvAt7zjqWAgs90P7OlcT_9kpcIWjY"
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuYXRzdWthc2hpaXoiLsdafasdfCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIyMDEzMywiZXhwIjoxNjg2MzA2NTMzfQ.C4IQ48D8nCAx0hwvAt7zjqWAgs90P7OlcT_9kpcIWjY"
+}
+```
+| index | type   | default | required | description |
+|-------|--------|------|----------|-------------|
+|refreshToken| string |    | true     |     |
+- response
+```json
+{
+  "code": 0,
+  "result": {
+    "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOigfdgJuYXRzdWthc2hpaXoiLCJzdWIiOiJ2djk5OSIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MzA0ODExfQ.n8fJp6_EUltl2GF6Six4Er1KonCIDVBcx33xUdJAIxE",
+    "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZDVhZDhjYS04NjE5LTRfdsfsdjNTAtOTQ4Yi0zNDNiYjEyNDdiYzQiLCJ1aWQiOjUsInVzZXJuYW1lIjoidnY5OTkiLCJlbWFpbCI6InZ2OTk5QGdtYWlsLmNvbSIsImlzcyI6Im5hdHN1a2FzaGlpeiIsImlhdCI6MTY4NjIxODQxMSwiZXhwIjoxNjg2MjIyMDExfQ.McaPFxSeRTnqo3G8KrCTmUwIfaOUGonV7i543_LdtTs",
+    "refreshExpire": 1686304811568,
+    "accessExpire": 1686222011541
+  },
+  "pagination": null
 }
 ```
 
