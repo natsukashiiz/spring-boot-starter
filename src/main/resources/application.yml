@@ -20,3 +20,6 @@ natsukashiiz:
     refresh:
       secret: rBhbLzWnPFPbVUdAnYaHBPWHXNjA5cfJpjuhYPBArxSpLAh2Xm5Jbcr3XMR2W3Pn
       expirationMs: 86400000
+logging:
+  level:
+    org.springframework.web: DEBUG
