@@ -38,7 +38,7 @@
 |------|---------------------------|------------------------------|
 | 0    | SUCCESS                   | success                      |
 | 210  | INVALID_REQUEST           | invalid request              |
-| 211  | INVALID_EMAIL             | INVALID_EMAIL                | invalid email                |
+| 211  | INVALID_EMAIL             | invalid email                |
 | 212  | INVALID_USERNAME          | invalid username             |
 | 213  | INVALID_PASSWORD          | invalid password             |
 | 214  | INVALID_NEW_PASSWORD      | invalid new password         |
