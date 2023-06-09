@@ -39,9 +39,8 @@ public class UserService {
     private final JwtUtils jwtUtils;
     private final JwtResfreshUtils jwtResfreshUtils;
 
-    public ResponseEntity<?> getMe() {
-        String username = Comm.getUsernameFromAuth();
-        Optional<User> opt = repo.findByUsername(username);
+    public ResponseEntity<?> getMe(UserDetailsImpl auth) {
+        Optional<User> opt = repo.findByUsername(auth.getUsername());
         if (!opt.isPresent()) {
             return Response.error(ResponseCode.NOT_FOUND);
         }
@@ -51,20 +50,18 @@ public class UserService {
         return Response.success(response);
     }
 
-    public ResponseEntity<?> signedHistory(Pagination paginate) {
-        UserDetailsImpl auth = Comm.getUserAuth();
+    public ResponseEntity<?> signedHistory(UserDetailsImpl auth, Pagination paginate) {
         Pageable pageable = Comm.getPaginate(paginate);
         Page<SignedHistory> histories = historyRepo.findByUid(auth.getId(), pageable);
         return Response.successList(histories);
     }
 
 
-    public ResponseEntity<?> update(UpdateUserRequest request) {
+    public ResponseEntity<?> update(UserDetailsImpl auth, UpdateUserRequest request) {
         if (ValidateUtil.invalidEmail(request.getEmail())) {
             return Response.error(ResponseCode.INVALID_EMAIL);
         }
-        String username = Comm.getUsernameFromAuth();
-        Optional<User> opt = repo.findByUsername(username);
+        Optional<User> opt = repo.findByUsername(auth.getUsername());
         if (!opt.isPresent()) {
             return Response.error(ResponseCode.NOT_FOUND);
         }
@@ -76,7 +73,7 @@ public class UserService {
         return Response.success(response);
     }
 
-    public ResponseEntity<?> changePassword(ChangePasswordRequest request) {
+    public ResponseEntity<?> changePassword(UserDetailsImpl auth, ChangePasswordRequest request) {
         if (ValidateUtil.invalidPassword(request.getCurrentPassword())) {
             return Response.error(ResponseCode.INVALID_PASSWORD);
         }
@@ -89,9 +86,7 @@ public class UserService {
             return Response.error(ResponseCode.PASSWORD_NOT_MATCH);
         }
 
-
-        String username = Comm.getUsernameFromAuth();
-        Optional<User> opt = repo.findByUsername(username);
+        Optional<User> opt = repo.findByUsername(auth.getUsername());
         if (!opt.isPresent()) {
             return Response.error(ResponseCode.NOT_FOUND);
         }

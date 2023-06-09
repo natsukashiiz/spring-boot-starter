@@ -2,19 +2,20 @@ package com.natsukashiiz.starter.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.natsukashiiz.starter.entity.User;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Objects;
 
+@ToString
 public class UserDetailsImpl implements UserDetails {
 
-    private Long id;
-    private String username;
-    private String email;
-    @JsonIgnore
-    private String password;
+    private final Long id;
+    private final String username;
+    private final String email;
+    private final String password;
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password) {
