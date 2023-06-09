@@ -35,25 +35,25 @@
 
 ### Response Code
 | code | text                      | description                  |
-|--|---------------------------|------------------------------|
-| 0 | SUCCESS                   | success                      |
-| 210 | INVALID_REQUEST           | invalid request              |
-| 211 | INVALID_EMAIL             | INVALID_EMAIL                | invalid email                |
-| 212 | INVALID_USERNAME          | invalid username             |
-| 213 | INVALID_PASSWORD          | invalid password             |
-| 214 | INVALID_NEW_PASSWORD      | invalid new password         |
-| 215 | INVALID_CODE     | invalid code         |
-| 216 | INVALID_UID     | invalid user id         |
-| 217 | INVALID_USERNAME_PASSWORD | invalid username or password |
-| 218 | PASSWORD_NOT_MATCH        | password not match        |
-| 310 | EXISTED_EMAIL             | existed email             |
-| 311 | EXISTED_USERNAME          | existed username          |
-| 410 | NOT_FOUND                 | not found                 |
-| 411 | NO_DATA                   | no data                   |
-| 510 | TOKEN_EXPIRE              | token expire              |
-| 511 | REFRESH_TOKEN_EXPIRE      | refresh token expire      |
-| 888 | UNAUTHORIZED              | unauthorized              |
-| 999 | UNKNOWN                   | unknown                   |
+|------|---------------------------|------------------------------|
+| 0    | SUCCESS                   | success                      |
+| 210  | INVALID_REQUEST           | invalid request              |
+| 211  | INVALID_EMAIL             | INVALID_EMAIL                | invalid email                |
+| 212  | INVALID_USERNAME          | invalid username             |
+| 213  | INVALID_PASSWORD          | invalid password             |
+| 214  | INVALID_NEW_PASSWORD      | invalid new password         |
+| 215  | INVALID_CODE     | invalid code         |
+| 216  | INVALID_UID     | invalid user id         |
+| 217  | INVALID_USERNAME_PASSWORD | invalid username or password |
+| 218  | PASSWORD_NOT_MATCH        | password not match        |
+| 310  | EXISTED_EMAIL             | existed email             |
+| 311  | EXISTED_USERNAME          | existed username          |
+| 410  | NOT_FOUND                 | not found                 |
+| 411  | NO_DATA                   | no data                   |
+| 510  | TOKEN_EXPIRE              | token expire              |
+| 511  | REFRESH_TOKEN_EXPIRE      | refresh token expire      |
+| 888  | UNAUTHORIZED              | unauthorized              |
+| 999  | UNKNOWN                   | unknown                   |
 
 ### Pagination
 - request
@@ -130,6 +130,11 @@ Content-Type: application/json
   }
 }
 ``` 
+| index    | type | description |
+|----------|-------|-------------|
+| id       | number| -           |
+| email    | string| -           |
+| username | string| -           |
 
 ## Sign In
 - request
@@ -159,6 +164,13 @@ Content-Type: application/json
   }
 }
 ```
+| index    | type   | description |
+|----------|--------|-------------|
+| refreshToken       | string | -           |
+| accessToken    | string | -           |
+| refreshExpire | number | -           |
+| accessExpire | number | -           |
+
 ### Refresh Token
 - request
 ```http request
@@ -184,6 +196,12 @@ Content-Type: application/json
   }
 }
 ```
+| index    | type   | description |
+|----------|--------|-------------|
+| refreshToken       | string | -           |
+| accessToken    | string | -           |
+| refreshExpire | number | -           |
+| accessExpire | number | -           |
 
 ## Users
 ### Personal Information
@@ -203,6 +221,11 @@ Authorization: Bearer <token>
   }
 }
 ```
+| index    | type | description |
+|----------|-------|-------------|
+| id       | number| -           |
+| email    | string| -           |
+| username | string| -           |
 
 ### Update
 - request
@@ -230,7 +253,11 @@ Content-Type: application/json
   }
 }
 ```
-
+| index    | type | description |
+|----------|-------|-------------|
+| id       | number| -           |
+| email    | string| -           |
+| username | string| -           |
 
 ### Singed History
 - request
@@ -262,3 +289,10 @@ Authorization: Bearer <token>
   }
 }
 ```
+| index | type     | description |
+|-------|----------|-------------|
+|id| number   | -           |
+|cdt| datetime | -           |
+|udt| datetime   | -           |
+|ipv4| string   | -           |
+|device| string   | -           |
