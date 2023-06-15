@@ -246,9 +246,7 @@ public class UserService {
         // generate token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        String token = tokenService.generateToken(authenticationToken);
-
-        return Response.success(token);
+        return Response.success(tokenService.generateToken(authenticationToken));
     }
 
     public ResponseEntity<?> refreshToken(TokenRefreshRequest request) {
