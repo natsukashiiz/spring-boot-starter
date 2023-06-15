@@ -12,6 +12,7 @@ import com.natsukashiiz.starter.repository.SignedHistoryRepo;
 import com.natsukashiiz.starter.repository.UserRepo;
 import com.natsukashiiz.starter.security.jwt.JwtResfreshUtils;
 import com.natsukashiiz.starter.security.jwt.JwtUtils;
+import com.natsukashiiz.starter.security.jwt.TokenService;
 import com.natsukashiiz.starter.utils.Comm;
 import com.natsukashiiz.starter.utils.ValidateUtil;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
     private final JwtResfreshUtils jwtResfreshUtils;
+    private final TokenService tokenService;
 
     public ResponseEntity<?> getMe(UserDetailsImpl auth) {
         Optional<User> opt = repo.findByUsername(auth.getUsername());
@@ -196,6 +198,56 @@ public class UserService {
         historyRepo.save(history);
 
         TokenResponse token = token(user);
+        return Response.success(token);
+    }
+
+    public ResponseEntity<?> loginV2(LoginRequest request, HttpServletRequest httpRequest) {
+
+        String ipv4 = Comm.getIpAddress(httpRequest);
+        String userAgent = Comm.getUserAgent(httpRequest);
+        String device = Comm.getDeviceType(userAgent);
+
+        // validate
+        if (ValidateUtil.invalidUsername(request.getUsername())) {
+            logger.error("Login-[block]:(validate username)");
+            return Response.error(ResponseCode.INVALID_USERNAME);
+        }
+
+        if (ValidateUtil.invalidPassword(request.getPassword())) {
+            logger.error("Login-[block]:(validate password)");
+            return Response.error(ResponseCode.INVALID_PASSWORD);
+        }
+
+        String username = request.getUsername();
+        String password = request.getPassword();
+
+        // check user in db
+        Optional<User> opt = repo.findByUsername(username);
+
+        if (!opt.isPresent()) {
+            logger.error("Login-[block]:(not found)");
+            return Response.error(ResponseCode.INVALID_USERNAME_PASSWORD);
+        }
+
+        User user = opt.get();
+        if (!matchPassword(password, user.getPassword())) {
+            logger.error("Login-[block]:(incorrect password)");
+            return Response.error(ResponseCode.INVALID_USERNAME_PASSWORD);
+        }
+
+        // save signed history
+        SignedHistory history = new SignedHistory();
+        history.setUid(user.getId());
+        history.setIpv4(ipv4);
+        history.setDevice(device);
+        history.setUserAgent(userAgent);
+        historyRepo.save(history);
+
+        // generate token
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        String token = tokenService.generateToken(authenticationToken);
+
         return Response.success(token);
     }
 

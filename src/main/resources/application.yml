@@ -20,6 +20,9 @@ natsukashiiz:
     refresh:
       secret: rBhbLzWnPFPbVUdAnYaHBPWHXNjA5cfJpjuhYPBArxSpLAh2Xm5Jbcr3XMR2W3Pn
       expirationMs: 86400000
+  rsa:
+    private-key: classpath:certs/private.pem
+    public-key: classpath:certs/public.pem
 logging:
   level:
     org.springframework.web: DEBUG
